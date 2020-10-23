@@ -35,7 +35,7 @@ deps:
 code:
     FROM +deps
     COPY --dir cmd ./
-    COPY github.com/earthly/earthly-example-proto:example+proto/pb .
+    COPY github.com/earthly/earthly-example-proto:example+proto/pb kvapi
     SAVE IMAGE
 
 lint:
@@ -62,6 +62,12 @@ kvserver:
     ARG EARTHLY_GIT_HASH
     RUN go build -ldflags  "-X main.GitSha=$EARTHLY_GIT_HASH" -o kvserver cmd/server/main.go
     SAVE ARTIFACT kvserver
+
+kvserver-docker:
+    FROM alpine:latest
+    COPY +kvserver/kvserver /kvserver
+    ENTRYPOINT /kvserver
+    SAVE IMAGE as kvserver:latest
 
 all:
     BUILD +lint

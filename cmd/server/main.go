@@ -6,8 +6,9 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/earthly/earthly-example-proto-server/kvapi"
+
 	"google.golang.org/grpc"
-	pb "google.golang.org/grpc/examples/helloworld/helloworld"
 )
 
 const (
@@ -30,6 +31,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+	log.Printf("Listening on %s", port)
 	s := grpc.NewServer()
 	pb.RegisterGreeterServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
