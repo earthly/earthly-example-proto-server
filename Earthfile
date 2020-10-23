@@ -35,7 +35,7 @@ deps:
 code:
     FROM +deps
     COPY --dir cmd ./
-    COPY github.com/earthly/earthly-example-proto:example+proto-go/go-pb kvapi
+    COPY github.com/earthly/earthly-example-proto:main+proto-go/go-pb kvapi
     SAVE IMAGE
 
 lint:
