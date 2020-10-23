@@ -40,7 +40,7 @@ code:
 
 lint:
     FROM +code
-    RUN output="$(ineffassign . | grep -v '/earthly/earthfile2llb/parser/.*\.go')" ; \
+    RUN output="$(ineffassign .)" ; \
         if [ -n "$output" ]; then \
             echo "$output" ; \
             exit 1 ; \
@@ -51,7 +51,7 @@ lint:
             exit 1 ; \
         fi
     RUN golint -set_exit_status ./...
-    RUN output="$(go vet ./... 2>&1)" ; \
+    RUN output="$(go vet ./... 2>&1 | grep -v '^go:')" ; \
         if [ -n "$output" ]; then \
             echo "$output" ; \
             exit 1 ; \

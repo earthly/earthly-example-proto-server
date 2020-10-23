@@ -24,6 +24,7 @@ type server struct {
 	data map[string]string
 }
 
+// Set stores a given value under a given key
 func (s *server) Set(ctx context.Context, in *pb.SetRequest) (*pb.SetReply, error) {
 	key := in.GetKey()
 	value := in.GetValue()
@@ -35,6 +36,7 @@ func (s *server) Set(ctx context.Context, in *pb.SetRequest) (*pb.SetReply, erro
 	return reply, nil
 }
 
+// Get returns a value associated with a key to the client
 func (s *server) Get(ctx context.Context, in *pb.GetRequest) (*pb.GetReply, error) {
 	key := in.GetKey()
 	log.Printf("serving get request for key %q", key)
