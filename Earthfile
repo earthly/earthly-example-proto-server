@@ -16,7 +16,6 @@ RUN apk add --update --no-cache \
     make \
     openssl \
     protoc \
-    shellcheck \
     util-linux
 
 WORKDIR /kvserver
