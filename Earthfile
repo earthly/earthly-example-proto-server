@@ -1,4 +1,6 @@
-FROM golang:1.13-alpine3.11
+VERSION 0.6
+
+FROM golang:1.19-alpine3.16
 
 RUN apk add --update --no-cache \
     bash \
@@ -21,10 +23,10 @@ RUN apk add --update --no-cache \
 WORKDIR /kvserver
 
 deps:
-    RUN go get golang.org/x/tools/cmd/goimports
-    RUN go get golang.org/x/lint/golint
-    RUN go get github.com/gordonklaus/ineffassign
-    RUN go get github.com/jackc/tern
+    RUN go install golang.org/x/tools/cmd/goimports@latest
+    RUN go install golang.org/x/lint/golint@latest
+    RUN go install github.com/gordonklaus/ineffassign@latest
+    RUN go install github.com/jackc/tern@latest
     COPY go.mod go.sum ./
     RUN go mod download
     SAVE ARTIFACT go.mod AS LOCAL go.mod
