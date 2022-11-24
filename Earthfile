@@ -31,13 +31,11 @@ deps:
     RUN go mod download
     SAVE ARTIFACT go.mod AS LOCAL go.mod
     SAVE ARTIFACT go.sum AS LOCAL go.sum
-    SAVE IMAGE
 
 code:
     FROM +deps
     COPY --dir cmd ./
     COPY github.com/earthly/earthly-example-proto:main+proto-go/go-pb kvapi
-    SAVE IMAGE
 
 lint:
     FROM +code
@@ -68,7 +66,7 @@ kvserver-docker:
     FROM alpine:latest
     COPY +kvserver/kvserver /kvserver
     ENTRYPOINT /kvserver
-    SAVE IMAGE as kvserver:latest
+    SAVE IMAGE kvserver:latest
 
 all:
     BUILD +lint
